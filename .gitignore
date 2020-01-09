@@ -1,0 +1,9 @@
+backend/node_modules
+backend/.env
+backend/*.lock
+backend/*.log
+
+web/node_modules
+web/.env
+web/*.lock
+web/*.log
