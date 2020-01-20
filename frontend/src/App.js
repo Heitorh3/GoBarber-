@@ -7,11 +7,11 @@ import Routes from './routes';
 import history from './services/history';
 
 function App() {
-  return (
-    <Router history={history}>
-      <Routes />
-    </Router>
-  );
+    return (
+        <Router history={history}>
+            <Routes />
+        </Router>
+    );
 }
 
 export default App;
