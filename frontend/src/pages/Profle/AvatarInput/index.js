@@ -6,12 +6,12 @@ import api from '~/services/api';
 import {Container} from './styles';
 
 export default function AvatarInput() {
-    const {defaultValue, registerField} = useField('avatar');
+    const ref = useRef(null);
+
+    const {fieldName, defaultValue, registerField} = useField('avatar');
 
     const [file, setFile] = useState(defaultValue && defaultValue.id);
     const [preview, setPreview] = useState(defaultValue && defaultValue.url);
-
-    const ref = useRef();
 
     useEffect(() => {
         if (ref.current) {
@@ -21,7 +21,7 @@ export default function AvatarInput() {
                 path: 'dataset.file',
             });
         }
-    }, [ref, registerField]);
+    }, [ref.current, fieldName]); // eslint-disable-line
 
     async function handleChange(e) {
         const data = new FormData();
