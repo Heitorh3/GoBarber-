@@ -28,14 +28,14 @@ class ScheduleController {
                         endOfDay(parsedDate),
                     ],
                 },
-                include: [
-                    {
-                        model: User,
-                        as: 'user',
-                        attribute: ['name'],
-                    },
-                ],
             },
+            include: [
+                {
+                    model: User,
+                    as: 'user',
+                    attributes: ['name'],
+                },
+            ],
             order: ['date'],
         });
 
