@@ -8,3 +8,8 @@ web/node_modules
 web/.env
 web/*.lock
 web/*.log
+
+mobile/node_modules
+mobile/.env
+mobile/*.lock
+mobile/*.log
