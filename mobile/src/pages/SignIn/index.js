@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {Image} from 'react-native';
 import Background from '~/components/Background';
 
@@ -12,7 +13,7 @@ import {
     SignLinkText,
 } from './styles';
 
-export default function SignIn() {
+export default function SignIn({navigation}) {
     return (
         <Background>
             <Container>
@@ -33,8 +34,11 @@ export default function SignIn() {
                     />
                     <SubmitButton onPress={() => {}}>Acessar</SubmitButton>
                 </Form>
-                <SignLink onPress={() => {}}>
-                    <SignLinkText>Criar contat gratuíta</SignLinkText>
+                <SignLink
+                    onPress={() => {
+                        navigation.navigate('SingUp');
+                    }}>
+                    <SignLinkText>Criar conta gratuíta</SignLinkText>
                 </SignLink>
             </Container>
         </Background>
