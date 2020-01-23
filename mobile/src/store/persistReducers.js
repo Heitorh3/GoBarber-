@@ -5,7 +5,7 @@ export default reducers => {
     const persistedReducer = persistReducer(
         {
             key: 'gobarber',
-            AsyncStorage,
+            storage: AsyncStorage,
             whitelist: ['auth', 'user'],
         },
         reducers
