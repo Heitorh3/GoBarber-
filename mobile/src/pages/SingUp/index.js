@@ -1,4 +1,6 @@
-import React, {useRef} from 'react';
+/* eslint-disable react/prop-types */
+import React, {useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {Image} from 'react-native';
 import Background from '~/components/Background';
@@ -13,11 +15,23 @@ import {
     SignLinkText,
 } from './styles';
 
+import {signUpRequest} from '~/store/modules/auth/actions';
+
 export default function SignUp({navigation}) {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loading = useSelector(state => state.auth.loading);
+
+    const dispatch = useDispatch();
+
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    function handleSubmit() {}
+    function handleSubmit() {
+        dispatch(signUpRequest(name, email, password));
+    }
 
     return (
         <Background>
@@ -28,6 +42,8 @@ export default function SignUp({navigation}) {
                         icon="person-outline"
                         autoCorrect={false}
                         autoCapitalize="none"
+                        value={name}
+                        onChangeText={setName}
                         placeholder="Digite o seu nome"
                         returnKeyType="next"
                         onSubmitEditing={() => {
@@ -40,6 +56,8 @@ export default function SignUp({navigation}) {
                         keyboardType="email-address"
                         autoCorrect={false}
                         autoCapitalize="none"
+                        valeu={email}
+                        onChangeText={setEmail}
                         placeholder="Digite o seu e-mail"
                         returnKeyType="next"
                         onSubmitEditing={() => {
@@ -51,12 +69,16 @@ export default function SignUp({navigation}) {
                     <FormInput
                         icon="lock-outline"
                         secureTextEntry
+                        value={password}
+                        onChangeText={setPassword}
                         placeholder="Digite a sua senha"
                         returnKeyType="send"
                         onSubmitEditing={handleSubmit}
                         ref={passwordRef}
                     />
-                    <SubmitButton onPress={handleSubmit}>Acessar</SubmitButton>
+                    <SubmitButton onPress={handleSubmit} loading={loading}>
+                        Cadastrar
+                    </SubmitButton>
                 </Form>
                 <SignLink
                     onPress={() => {

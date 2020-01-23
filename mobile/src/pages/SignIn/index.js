@@ -1,4 +1,6 @@
-import React, {useRef} from 'react';
+/* eslint-disable react/prop-types */
+import React, {useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {Image} from 'react-native';
 import Background from '~/components/Background';
@@ -13,10 +15,20 @@ import {
     SignLinkText,
 } from './styles';
 
-export default function SignIn({navigation}) {
-    const passwordRef = useRef();
+import {signInRequest} from '~/store/modules/auth/actions';
 
-    function handleSubmit() {}
+export default function SignIn({navigation}) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loading = useSelector(state => state.auth.loading);
+
+    const passwordRef = useRef();
+    const dispatch = useDispatch();
+
+    function handleSubmit() {
+        dispatch(signInRequest(email, password));
+    }
 
     return (
         <Background>
@@ -28,6 +40,8 @@ export default function SignIn({navigation}) {
                         keyboardType="email-address"
                         autoCorrect={false}
                         autoCapitalize="none"
+                        valeu={email}
+                        onChangeText={setEmail}
                         placeholder="Digite o seu e-mail"
                         returnKeyType="next"
                         onSubmitEditing={() => {
@@ -38,12 +52,16 @@ export default function SignIn({navigation}) {
                     <FormInput
                         icon="lock-outline"
                         secureTextEntry
+                        valeu={password}
+                        onChangeText={setPassword}
                         placeholder="Digite a sua senha"
                         returnKeyType="send"
                         onSubmitEditing={handleSubmit}
                         ref={passwordRef}
                     />
-                    <SubmitButton onPress={handleSubmit}>Acessar</SubmitButton>
+                    <SubmitButton onPress={handleSubmit} loading={loading}>
+                        Acessar
+                    </SubmitButton>
                 </Form>
                 <SignLink
                     onPress={() => {
