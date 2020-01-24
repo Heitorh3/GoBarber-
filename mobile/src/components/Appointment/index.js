@@ -42,10 +42,10 @@ export default function Appointment({data, onCancel}) {
 }
 
 Appointment.propTypes = {
-    data: PropTypes.objectOf(PropTypes.object),
+    data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     onCancel: PropTypes.func.isRequired,
 };
 
 Appointment.defaultProps = {
-    data: {},
+    data: [],
 };
