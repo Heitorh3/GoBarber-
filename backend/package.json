@@ -33,6 +33,7 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix",
+      "cross-env CI=true yarn test --bail --findRelatedTests",
       "git add"
     ]
   },
@@ -40,11 +41,14 @@
     "dev": "npm-run-all -p dev:*",
     "dev:server": "nodemon src/server.js",
     "dev:queue": "nodemon src/queue.js",
-    "debug": "nodemon --inspect src/server.js"
+    "debug": "nodemon --inspect src/server.js",
+    "test": "jest"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@sucrase/jest-plugin": "^2.0.0",
+    "@types/jest": "^24.9.1",
     "commitlint-config-heitorh3": "^0.1.1",
     "cross-env": "^6.0.3",
     "eslint": "^6.7.1",
@@ -53,6 +57,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.1",
     "husky": "^3.1.0",
+    "jest": "^25.1.0",
     "lint-staged": "^9.5.0",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1",

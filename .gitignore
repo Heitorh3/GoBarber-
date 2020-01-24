@@ -1,5 +1,6 @@
 backend/node_modules
 backend/tmp/uploads
+backend/__tests__/coverage
 backend/.env
 backend/*.lock
 backend/*.log
