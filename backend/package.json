@@ -1,8 +1,9 @@
 {
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "@sentry/node": "5.10.1",
     "bcryptjs": "^2.4.3",
-    "bee-queue": "^1.2.2",
     "bull": "^3.12.1",
     "bull-board": "^0.6.0",
     "cors": "^2.8.5",
@@ -32,7 +33,6 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix",
-      "cross-env CI=true yarn test --bail --findRelatedTests",
       "git add"
     ]
   },
