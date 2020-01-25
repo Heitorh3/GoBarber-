@@ -2,8 +2,14 @@
 import request from 'supertest';
 import app from '../../src/app';
 
+import truncate from '../util/truncate';
+
 describe('User', () => {
-    test('It should create a new user', async () => {
+    beforeEach(async () => {
+        await truncate();
+    });
+
+    it('It should create a new user', async () => {
         const response = await request(app)
             .post('/users')
             .send({
@@ -15,7 +21,7 @@ describe('User', () => {
         expect(response.body).toHaveProperty('id');
     });
 
-    test('Can get a user by name and e-mail', async () => {
+    it('Can get a user by name and e-mail', async () => {
         const userPayload = {
             name: 'Maria do Carmo',
             email: 'maria@gmail.com',
@@ -28,5 +34,23 @@ describe('User', () => {
 
         expect(response.body.name).toEqual(userPayload.name);
         expect(response.body.email).toEqual(userPayload.email);
+    });
+
+    it('Should not be able to register with duplicated email', async () => {
+        const userPayload = {
+            name: 'Maria do Carmo',
+            email: 'maria@gmail.com',
+            password: '123456',
+        };
+
+        await request(app)
+            .post('/users')
+            .send(userPayload);
+
+        const response = await request(app)
+            .post('/users')
+            .send(userPayload);
+
+        expect(response.status).toBe(400);
     });
 });
