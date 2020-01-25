@@ -1,8 +1,11 @@
 /* eslint-disable no-undef */
 import request from 'supertest';
-import app from '../../src/app';
+import bcrypt from 'bcryptjs';
 
+import app from '../../src/app';
 import truncate from '../util/truncate';
+
+import User from '../../src/app/models/User';
 
 describe('User', () => {
     beforeEach(async () => {
@@ -52,5 +55,17 @@ describe('User', () => {
             .send(userPayload);
 
         expect(response.status).toBe(400);
+    });
+
+    it('Should encrypt user password when new user created', async () => {
+        const user = await User.create({
+            name: 'Maria do Carmo',
+            email: 'maria@gmail.com',
+            password: '123456',
+        });
+
+        const compareHash = await bcrypt.compare('123456', user.password_hash);
+
+        expect(compareHash).toBe(true);
     });
 });

@@ -8,6 +8,7 @@ module.exports = {
     database: process.env.DB_NAME,
     storage: './__tests__/database.sqlite',
     operatorAlias: false,
+    logging: false,
     define: {
         timestamps: true,
         underscored: true,
