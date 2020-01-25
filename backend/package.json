@@ -42,7 +42,7 @@
     "dev:server": "nodemon src/server.js",
     "dev:queue": "nodemon src/queue.js",
     "debug": "nodemon --inspect src/server.js",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
