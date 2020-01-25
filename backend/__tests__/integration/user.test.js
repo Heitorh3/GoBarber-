@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import app from '../../src/app';
 import truncate from '../util/truncate';
 
-import User from '../../src/app/models/User';
+import factoris from '../factories';
 
 describe('User', () => {
     beforeEach(async () => {
@@ -13,23 +13,20 @@ describe('User', () => {
     });
 
     it('It should create a new user', async () => {
+        const user = await factoris.attrs('User');
+
         const response = await request(app)
             .post('/users')
-            .send({
-                name: 'Heitor Neto',
-                email: 'heitorh3@gmail.com',
-                password: '123456',
-            });
+            .send(user);
 
         expect(response.body).toHaveProperty('id');
     });
 
     it('Can get a user by name and e-mail', async () => {
-        const userPayload = {
-            name: 'Maria do Carmo',
-            email: 'maria@gmail.com',
-            password: '123456',
-        };
+        const userPayload = await factoris.attrs('User', {
+            name: 'Heitor Neto',
+            email: 'heitorh3@gmail.com',
+        });
 
         const response = await request(app)
             .post('/users')
@@ -40,11 +37,7 @@ describe('User', () => {
     });
 
     it('Should not be able to register with duplicated email', async () => {
-        const userPayload = {
-            name: 'Maria do Carmo',
-            email: 'maria@gmail.com',
-            password: '123456',
-        };
+        const userPayload = await factoris.attrs('User');
 
         await request(app)
             .post('/users')
@@ -58,9 +51,7 @@ describe('User', () => {
     });
 
     it('Should encrypt user password when new user created', async () => {
-        const user = await User.create({
-            name: 'Maria do Carmo',
-            email: 'maria@gmail.com',
+        const user = await factoris.create('User', {
             password: '123456',
         });
 
