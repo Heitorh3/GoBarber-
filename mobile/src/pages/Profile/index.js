@@ -12,9 +12,11 @@ import {
     Form,
     FormInput,
     SubmitButton,
+    LogoutButton,
     Separator,
 } from './styles';
 
+import {signOut} from '~/store/modules/auth/actions';
 import {updateProfileRequest} from '~/store/modules/user/actions';
 
 export default function Profile() {
@@ -47,6 +49,10 @@ export default function Profile() {
         );
     }
 
+    function handleLogout() {
+        dispache(signOut());
+    }
+
     useEffect(() => {
         setOldPassword('');
         setPassword('');
@@ -76,7 +82,7 @@ export default function Profile() {
                         keyboardType="email-address"
                         autoCorrect={false}
                         autoCapitalize="none"
-                        valeu={email}
+                        value={email}
                         onChangeText={setEmail}
                         placeholder="Digite o seu e-mail"
                         returnKeyType="next"
@@ -126,6 +132,7 @@ export default function Profile() {
                     <SubmitButton onPress={handleSubmit} loading={loading}>
                         Atualizar perfil
                     </SubmitButton>
+                    <LogoutButton onPress={handleLogout}>Sair</LogoutButton>
                 </Form>
             </Container>
         </Background>
