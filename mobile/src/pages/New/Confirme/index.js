@@ -11,8 +11,8 @@ import Background from '~/components/Background';
 import {Container, Avatar, Name, Time, SubmitButton} from './styles';
 
 export default function Confirme({navigation}) {
-    const {provider} = navigation.getParam('provider');
-    const {time} = navigation.getParam('time');
+    const provider = navigation.getParam('provider');
+    const time = navigation.getParam('time');
 
     const timeFormated = useMemo(() => {
         formatRelative(parseISO(time), new Date(), {locale: pt});
@@ -40,7 +40,7 @@ export default function Confirme({navigation}) {
 }
 
 Confirme.navigationOptions = ({navigation}) => ({
-    headerTitle: 'Confirmat agendamento',
+    headerTitle: 'Confirmar agendamento',
     headerLeft: () => (
         // eslint-disable-next-line no-unused-expressions
         <TouchableOpacity
