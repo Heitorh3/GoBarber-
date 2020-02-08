@@ -28,26 +28,24 @@ export default function SelectProvider({navigation}) {
                 <ProvidersList
                     data={providers}
                     keyExtractor={item => String(item.id)}
-                    renderItem={({item: provider}) => {
-                        return (
-                            // eslint-disable-next-line no-unused-expressions
-                            <Provider
-                                onPress={() =>
-                                    navigation.navigate('SelectDateTime', {
-                                        provider,
-                                    })
-                                }>
-                                <Avatar
-                                    source={{
-                                        uri: provider.avatar
-                                            ? provider.avatar.url
-                                            : `https://api.adorable.io/avatar/50/${provider.name}.png`,
-                                    }}
-                                />
-                                <Name>{provider.name}</Name>
-                            </Provider>
-                        );
-                    }}
+                    renderItem={({item: provider}) => (
+                        // eslint-disable-next-line no-unused-expressions
+                        <Provider
+                            onPress={() =>
+                                navigation.navigate('SelectDateTime', {
+                                    provider,
+                                })
+                            }>
+                            <Avatar
+                                source={{
+                                    uri: provider.avatar
+                                        ? provider.avatar.url
+                                        : `https://api.adorable.io/avatar/50/${provider.name}.png`,
+                                }}
+                            />
+                            <Name>{provider.name}</Name>
+                        </Provider>
+                    )}
                 />
             </Container>
         </Background>
@@ -55,15 +53,14 @@ export default function SelectProvider({navigation}) {
 }
 
 SelectProvider.navigationOptions = ({navigation}) => ({
-    headerTitle: 'Selecione um prestador',
-    headerTitleAlign: 'center',
-    headerLeft: () => {
+    title: 'Selecione um prestador',
+    headerLeft: () => (
         // eslint-disable-next-line no-unused-expressions
         <TouchableOpacity
             onPress={() => {
                 navigation.navigate('Dashboard');
             }}>
             <Icon name="chevron-left" size={20} color="#FFF" />
-        </TouchableOpacity>;
-    },
+        </TouchableOpacity>
+    ),
 });
