@@ -1,8 +1,12 @@
 import React from 'react';
-import {View} from 'react-native';
 
+import Background from '~/components/Background';
 // import { Container } from './styles';
 
 export default function Confirme() {
-    return <View />;
+    return <Background />;
 }
+
+Confirme.navigationOptions = ({navigation}) => ({
+    title: 'Confirmar agendamento',
+});
