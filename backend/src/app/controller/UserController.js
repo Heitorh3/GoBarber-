@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 
+import Cache from '../lib/Cache';
 import File from '../models/File';
 import User from '../models/User';
 
@@ -28,6 +29,10 @@ class UserController {
         }
 
         const { id, name, email, provider } = await User.create(req.body);
+
+        if (provider) {
+            await Cache.invalidate('providers');
+        }
 
         return res.json({
             id,

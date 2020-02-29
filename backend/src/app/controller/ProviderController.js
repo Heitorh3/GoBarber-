@@ -1,8 +1,15 @@
+import Cache from '../lib/Cache';
 import File from '../models/File';
 import User from '../models/User';
 
 class ProviderController {
     async index(req, res) {
+        const cached = await Cache.get('providers');
+
+        if (cached) {
+            return res.json(cached);
+        }
+
         const providers = await User.findAll({
             where: { provider: true },
             attributes: ['id', 'name', 'email', 'avatar_id'],
@@ -15,6 +22,7 @@ class ProviderController {
             ],
         });
 
+        await Cache.set('providers', providers);
         return res.json(providers);
     }
 }
