@@ -4,5 +4,5 @@ import auth from './auth/saga';
 import user from './user/saga';
 
 export default function* rootSaga() {
-    return yield all([auth, user]);
+  return yield all([auth, user]);
 }
